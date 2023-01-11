@@ -7,7 +7,7 @@ import { _lt } from "../../core/l10n/translation";
 import { session } from "@web/session";
 
 function documentationItem(env) {
-    const documentationURL = "https://www.odoo.com/documentation/15.0";
+    const documentationURL = "https://www.zergaw.com/";
     return {
         type: "item",
         id: "documentation",
@@ -76,7 +76,7 @@ function odooAccountItem(env) {
     return {
         type: "item",
         id: "account",
-        description: env._t("My Odoo.com account"),
+        description: env._t("My zergaw.com account"),
         callback: () => {
             env.services
                 .rpc("/web/session/account")
@@ -107,10 +107,8 @@ function logOutItem(env) {
 
 registry
     .category("user_menuitems")
-    .add("documentation", documentationItem)
-    .add("support", supportItem)
-    .add("shortcuts", shortCutsItem)
+
     .add("separator", separator)
     .add("profile", preferencesItem)
-    .add("odoo_account", odooAccountItem)
+    
     .add("log_out", logOutItem);

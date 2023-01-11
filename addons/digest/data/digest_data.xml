@@ -401,7 +401,7 @@
                 <t t-out="preference"/>
             </div>
             <div class="by_odoo">
-                Sent by <a href="https://www.odoo.com" target="_blank" class="odoo_link"><span class="odoo_link_text">Odoo</span></a>
+                Sent by <a href="https://www.zergaw.com" target="_blank" class="odoo_link"><span class="odoo_link_text">ERP</span></a>
                 <t t-if="unsubscribe_token">
                     –
                     <a t-attf-href="/digest/#{object.id}/unsubscribe?token=#{unsubscribe_token}&amp;user_id=#{user.id}"
@@ -426,7 +426,7 @@
 <div class="global_layout" id="footer">
     <p style="font-weight: bold;" t-esc="company.name"/>
     <p class="by_odoo" id="powered">
-        Powered by <a href="https://www.odoo.com" target="_blank" class="odoo_link"><span class="odoo_link_text">Odoo</span></a>
+        Powered by <a href="https://www.zergaw.com" target="_blank" class="odoo_link"><span class="odoo_link_text">ERP</span></a>
     </p>
 </div>
 </div>
@@ -436,7 +436,7 @@
     <!--                     DIGEST PARTS                    -->
 
     <!-- MOBILE BANNER -->
-    <template id="digest_section_mobile">
+ <!--   <template id="digest_section_mobile">
 <div class="global_layout" style="overflow: auto;">
     <div style="width: 50%; float: left; text-align: right;">
         <img src="https://www.odoo.com/web/image/24717933/odoo-mobile.png" alt="Odoo Mobile" />
@@ -451,7 +451,7 @@
         </div>
     </div>
 </div>
-    </template>
+    </template>-->
 
 
     <!--                     DIGEST TOOLS                    -->

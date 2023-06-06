@@ -683,17 +683,18 @@ export function getDeepRange(editable, { range, sel, splitText, select, correctT
             }
         }
     }
-    // A selection spanning multiple nodes and ending at position 0 of a
-    // node, like the one resulting from a triple click, are corrected so
-    // that it ends at the last position of the previous node instead.
-    const beforeEnd = end.previousSibling;
+    // A selection spanning multiple nodes and ending at position 0 of a node,
+    // like the one resulting from a triple click, is corrected so that it ends
+    // at the last position of the previous node instead.
+    const endLeaf = firstLeaf(end);
+    const beforeEnd = endLeaf.previousSibling;
     if (
         correctTripleClick &&
         !endOffset &&
         (start !== end || startOffset !== endOffset) &&
         (!beforeEnd || (beforeEnd.nodeType === Node.TEXT_NODE && !isVisibleStr(beforeEnd)))
     ) {
-        const previous = previousLeaf(end, editable, true);
+        const previous = previousLeaf(endLeaf, editable, true);
         if (previous && closestElement(previous).isContentEditable) {
             [end, endOffset] = [previous, nodeSize(previous)];
         }
@@ -963,7 +964,7 @@ export const formatSelection = (editor, formatName, {applyStyle, formatProps} = 
                     tag.remove();
                     formatSpec.addStyle(getOrCreateSpan(selectedTextNode, inlineAncestors), formatProps);
                 }
-            } else {
+            } else if (formatName !== 'fontSize' || formatProps.size !== undefined) {
                 formatSpec.addStyle(getOrCreateSpan(selectedTextNode, inlineAncestors), formatProps);
             }
         }
@@ -1369,7 +1370,7 @@ export function getOuid(node, optimize = false) {
  * @returns {boolean}
  */
 export function isHtmlContentSupported(node) {
-    return !closestElement(node, '[data-oe-model]:not([data-oe-field="arch"]),[data-oe-translation-id]', true);
+    return !closestElement(node, '[data-oe-model]:not([data-oe-field="arch"]):not([data-oe-type="html"]),[data-oe-translation-id]', true);
 }
 /**
  * Returns whether the given node is a element that could be considered to be
@@ -1584,7 +1585,7 @@ export function isEmptyBlock(blockEl) {
     for (const node of nodes) {
         // There is no text and no double BR, the only thing that could make
         // this visible is a "visible empty" node like an image.
-        if (node.nodeName != 'BR' && isVisibleEmpty(node)) {
+        if (node.nodeName != 'BR' && (isVisibleEmpty(node) || isFontAwesome(node))) {
             return false;
         }
     }
@@ -1768,12 +1769,7 @@ export function fillEmpty(el) {
         blockEl.appendChild(br);
         fillers.br = br;
     }
-    if (
-        !el.textContent.length &&
-        !isBlock(el) &&
-        el.nodeName !== 'BR' &&
-        !el.hasAttribute("oe-zws-empty-inline")
-    ) {
+    if (!isVisible(el) && !el.hasAttribute('oe-zws-empty-inline')) {
         // As soon as there is actual content in the node, the zero-width space
         // is removed by the sanitize function.
         const zws = document.createTextNode('\u200B');
@@ -2426,4 +2422,15 @@ export function peek(arr) {
  */
 export function isMacOS() {
     return window.navigator.userAgent.includes('Mac');
+}
+
+/**
+ * Remove zero-width spaces from the provided node and its descendants.
+ *
+ * @param {Node} node
+ */
+export function cleanZWS(node) {
+    [node, ...descendants(node)]
+        .filter(node => node.nodeType === Node.TEXT_NODE)
+        .forEach(node => node.nodeValue = node.nodeValue.replace(/\u200B/g, ''));
 }

@@ -10,9 +10,13 @@
 # Luis Felipe Miléo <mileo@kmee.com.br>, 2021
 # grazziano <gra.negocia@gmail.com>, 2021
 # Keli Brugalli <kbr@odoo.com>, 2021
-# Éder Brito <britoederr@gmail.com>, 2021
 # Marcel Savegnago <marcel.savegnago@gmail.com>, 2022
 # Martin Trigaux, 2022
+# Luis Bispo, 2023
+# Jolien De Paepe, 2023
+# Éder Brito <britoederr@gmail.com>, 2023
+# Kevilyn Rosa, 2023
+# Layna Nascimento, 2023
 # 
 msgid ""
 msgstr ""
@@ -20,8 +24,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-10 06:07+0000\n"
 "PO-Revision-Date: 2021-09-14 12:27+0000\n"
-"Last-Translator: Martin Trigaux, 2022\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/odoo/teams/41243/pt_BR/)\n"
+"Last-Translator: Layna Nascimento, 2023\n"
+"Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -190,7 +194,7 @@ msgstr "'%s' não é uma data correta"
 #: model_terms:ir.ui.view,arch_db:website.list_website_public_pages
 #, python-format
 msgid "'. Showing results for '"
-msgstr ""
+msgstr "'. Mostrando resultados para '"
 
 #. module: website
 #. openerp-web
@@ -637,14 +641,8 @@ msgstr "<b>Deslize</b> este botão para alterar o tamanho da coluna."
 #: model_terms:ir.ui.view,arch_db:website.view_edit_robots
 msgid ""
 "<br/><br/>\n"
-"                    Example of rule:<br/>\n"
-"                    <code class=\"ml-4\">Disallow: /web/login</code><br/>\n"
-"                    <code class=\"ml-4\">Allow: *</code>"
+"                    Example of rule:<br/>"
 msgstr ""
-"<br/><br/>\n"
-"                    Exemplo de regra:<br/>\n"
-"                    <code class=\"ml-4\">Não Permitir: /web/login</code><br/>\n"
-"                    <code class=\"ml-4\">Permitir: *</code>"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_carousel
@@ -2018,7 +2016,7 @@ msgstr "Outro recurso"
 #. module: website
 #: model:ir.model.fields.selection,name:website.selection__theme_ir_asset__directive__append
 msgid "Append"
-msgstr ""
+msgstr "Anexar"
 
 #. module: website
 #: model:ir.actions.act_window,name:website.action_website_add_features
@@ -2433,7 +2431,7 @@ msgstr "Sistema de construção de blocos"
 #: code:addons/website/static/src/js/menu/new_content.js:0
 #, python-format
 msgid "Building your %s"
-msgstr "Construindo seu %s"
+msgstr "Construindo %s"
 
 #. module: website
 #. openerp-web
@@ -2441,7 +2439,7 @@ msgstr "Construindo seu %s"
 #: model_terms:ir.ui.view,arch_db:website.user_navbar
 #, python-format
 msgid "Building your website..."
-msgstr "Construindo seu site..."
+msgstr "Construindo o seu site..."
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_theme_ir_asset__bundle
@@ -3383,7 +3381,7 @@ msgstr "Código de cabeçalho personalizado"
 #: model:ir.model.fields,field_description:website.field_res_config_settings__auth_signup_uninvited
 #: model:ir.model.fields,field_description:website.field_website__auth_signup_uninvited
 msgid "Customer Account"
-msgstr "Conta Cliente"
+msgstr "Conta do cliente"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_big_icons_subtitles
@@ -3712,7 +3710,7 @@ msgstr "Direção"
 #. module: website
 #: model:ir.model.fields,field_description:website.field_theme_ir_asset__directive
 msgid "Directive"
-msgstr ""
+msgstr "Diretiva"
 
 #. module: website
 #: model:ir.actions.server,name:website.website_disable_unused_snippets_assets_ir_actions_server
@@ -6452,7 +6450,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.template_footer_contact
 #: model_terms:ir.ui.view,arch_db:website.template_footer_minimalist
 msgid "Logo of MyCompany"
-msgstr "Logo da Empresa"
+msgstr "Logo da empresa"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -6581,7 +6579,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_media_list_options
 msgid "Media"
-msgstr ""
+msgstr "Mídia"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_media_list
@@ -6723,6 +6721,13 @@ msgstr "Minutos"
 #, python-format
 msgid "Mobile"
 msgstr "Celular"
+
+#. module: website
+#. openerp-web
+#: code:addons/website/static/src/js/editor/snippets.options.js:0
+#, python-format
+msgid "Mobile Alignment"
+msgstr ""
 
 #. module: website
 #. openerp-web
@@ -6948,7 +6953,7 @@ msgstr "Nome"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.searchbar_input_snippet_options
 msgid "Name (A-Z)"
-msgstr ""
+msgstr "Nome (A-Z)"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.searchbar_input_snippet_options
@@ -7127,7 +7132,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.list_website_public_pages
 #, python-format
 msgid "No results found for '"
-msgstr ""
+msgstr "Nenhum resultado encontrado para '"
 
 #. module: website
 #. openerp-web
@@ -7185,7 +7190,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.one_page_line
 #: model_terms:ir.ui.view,arch_db:website.website_pages_view_search
 msgid "Not published"
-msgstr "Não Publicado"
+msgstr "Não publicado"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.website_pages_view_search
@@ -7228,7 +7233,7 @@ msgstr "Número de Idiomas"
 #: code:addons/website/static/src/components/configurator/configurator.xml:0
 #, python-format
 msgid "OR"
-msgstr ""
+msgstr "OU"
 
 #. module: website
 #. openerp-web
@@ -9743,6 +9748,16 @@ msgstr ""
 
 #. module: website
 #. openerp-web
+#: code:addons/website/static/src/js/editor/snippets.options.js:0
+#, python-format
+msgid ""
+"This font already exists, you can only add it as a local font to replace the"
+" server version."
+msgstr ""
+
+#. module: website
+#. openerp-web
+#: code:addons/website/static/src/js/editor/snippets.options.js:0
 #: code:addons/website/static/src/xml/website.editor.xml:0
 #, python-format
 msgid "This font is hosted and served to your visitors by Google servers"
@@ -9798,6 +9813,13 @@ msgstr "Esta página está no menu <b>%s</b>"
 #: model_terms:ir.ui.view,arch_db:website.one_page_line
 msgid "This page will be published on {{ date_formatted }}"
 msgstr "Esta página será publicada em {{ date_formatted }}"
+
+#. module: website
+#. openerp-web
+#: code:addons/website/static/src/js/menu/translate.js:0
+#, python-format
+msgid "This translation is not editable."
+msgstr ""
 
 #. module: website
 #. openerp-web
@@ -10041,6 +10063,20 @@ msgstr "Transição"
 #, python-format
 msgid "Translate Attribute"
 msgstr "Traduzir Atributo"
+
+#. module: website
+#. openerp-web
+#: code:addons/website/static/src/js/menu/translate.js:0
+#, python-format
+msgid "Translate Selection Option"
+msgstr ""
+
+#. module: website
+#. openerp-web
+#: code:addons/website/static/src/js/menu/translate.js:0
+#, python-format
+msgid "Translate header in the text. Menu is generated automatically."
+msgstr ""
 
 #. module: website
 #. openerp-web
@@ -11235,6 +11271,13 @@ msgid "You can't remove the submit button of the form"
 msgstr "Você não pode remover o botão de envio do formulário"
 
 #. module: website
+#: code:addons/website/models/website.py:0
+#, python-format
+msgid ""
+"You cannot delete default website %s. Try to change its settings instead"
+msgstr ""
+
+#. module: website
 #: code:addons/website/controllers/backend.py:0
 #, python-format
 msgid "You do not have sufficient rights to perform that action."
@@ -11330,8 +11373,8 @@ msgid ""
 "Your Dynamic Snippet will be displayed here... This message is displayed "
 "because you did not provided both a filter and a template to use.<br/>"
 msgstr ""
-"Seu Snipped Dinâmico será exibido aqui... Esta mensagem será exibida porque "
-"você não forneceu você não forneceu um filtro e um modelo para usar. <br/>"
+"Seu snippet dinâmico será exibido aqui... Esta mensagem é exibida porque "
+"você não forneceu um filtro e um modelo a ser utilizado. <br/>"
 
 #. module: website
 #. openerp-web
@@ -11620,7 +11663,7 @@ msgstr "Cursos Online"
 #: code:addons/website/controllers/form.py:0
 #, python-format
 msgid "email"
-msgstr ""
+msgstr "e-mail"
 
 #. module: website
 #. openerp-web
@@ -11797,6 +11840,14 @@ msgid "menu, pricing"
 msgstr "menu, pricing"
 
 #. module: website
+#. openerp-web
+#: code:addons/website/static/src/snippets/s_website_form/options.js:0
+#: code:addons/website/static/src/xml/website_form_editor.xml:0
+#, python-format
+msgid "no value"
+msgstr ""
+
+#. module: website
 #: model_terms:ir.ui.view,arch_db:website.color_combinations_debug_view
 #: model_terms:website.page,arch_db:website.color_combinations_debug_page
 msgid "o-color-"
@@ -11868,7 +11919,7 @@ msgstr "promotion, characteristic, quality"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.searchbar_input_snippet_options
 msgid "results"
-msgstr ""
+msgstr "resultados"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
@@ -11887,7 +11938,7 @@ msgstr ""
 #: code:addons/website/static/src/components/configurator/configurator.js:0
 #, python-format
 msgid "sell more"
-msgstr ""
+msgstr "vender mais"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets

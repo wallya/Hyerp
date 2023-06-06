@@ -314,6 +314,11 @@ var EditPageMenu = websiteNavbarData.WebsiteNavbarActionWidget.extend({
                         this.classList.add('o_dirty');
                     }
                 });
+                if (this.options.processRecordsCallback) {
+                    for (const el of $savable) {
+                        this.options.processRecordsCallback(record, el);
+                    }
+                }
             }
         };
         this.observer = new MutationObserver(processRecords);
@@ -355,16 +360,34 @@ var EditPageMenu = websiteNavbarData.WebsiteNavbarActionWidget.extend({
         // this badly relies on the contenteditable="true" attribute being on
         // those images but it is rightfully lost after the first save.
         // grep: COMPANY_TEAM_CONTENTEDITABLE
-        const $extraEditableZones = $editableSavableZones.find('.s_company_team .o_not_editable img');
+        let $extraEditableZones = $editableSavableZones.find('.s_company_team .o_not_editable img');
+
+        // To make sure the selection remains bounded to the active tab,
+        // each tab is made non editable while keeping its nested
+        // oe_structure editable. This avoids having a selection range span
+        // over all further inactive tabs when using Chrome.
+        // grep: .s_tabs
+        $extraEditableZones = $extraEditableZones.add($editableSavableZones.find('.tab-pane > .oe_structure'));
 
         return $editableSavableZones.add($extraEditableZones).toArray();
     },
 
     _getReadOnlyAreas () {
-        return [];
+        // To make sure the selection remains bounded to the active tab,
+        // each tab is made non editable while keeping its nested
+        // oe_structure editable. This avoids having a selection range span
+        // over all further inactive tabs when using Chrome.
+        // grep: .s_tabs
+        return [...document.querySelectorAll('.tab-pane > .oe_structure')].map(el => el.parentNode);
     },
     _getUnremovableElements () {
-        return this._targetForEdition()[0].querySelectorAll("#top_menu a:not(.oe_unremovable)");
+        // TODO adapt in master: this was added as a fix to target some elements
+        // to be unremovable. This fix had to be reverted but to keep things
+        // stable, this still had to return the same thing: a NodeList. This
+        // code here seems the only (?) way to create a static empty NodeList.
+        // In master, this should return an array as it seems intended by the
+        // library caller anyway.
+        return document.querySelectorAll('.a:not(.a)');
     },
     /**
      * Call preventDefault of an event.
@@ -380,7 +403,9 @@ var EditPageMenu = websiteNavbarData.WebsiteNavbarActionWidget.extend({
      * @private
      */
     _addEditorMessages: function () {
-        const $editable = this._targetForEdition().find('.oe_structure.oe_empty, [data-oe-type="html"]');
+        const $editable = this._targetForEdition()
+            .find('.oe_structure.oe_empty, [data-oe-type="html"]')
+            .filter(':o_editable');
         this.$editorMessageElements = $editable
             .not('[data-editor-message]')
             .attr('data-editor-message', _t('DRAG BUILDING BLOCKS HERE'));

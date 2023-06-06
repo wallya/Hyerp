@@ -20,10 +20,10 @@
 # marcescu, 2022
 # CristianCruzParra, 2022
 # Harcogourmet, 2022
-# Josep Anton Belchi, 2022
-# Farouk Jabiri, 2022
+# jabiri7, 2022
 # Óscar Fonseca <tecnico@extreme-micro.com>, 2022
-# Ivan Espinola, 2022
+# Ivan Espinola, 2023
+# jabelchi, 2023
 # 
 msgid ""
 msgstr ""
@@ -31,8 +31,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-24 08:19+0000\n"
 "PO-Revision-Date: 2021-09-14 12:24+0000\n"
-"Last-Translator: Ivan Espinola, 2022\n"
-"Language-Team: Catalan (https://www.transifex.com/odoo/teams/41243/ca/)\n"
+"Last-Translator: jabelchi, 2023\n"
+"Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -127,7 +127,7 @@ msgstr "%s no es pot suprimir. Intenta cancel·lar-los abans."
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrp_bom
 msgid "&amp; Cost"
-msgstr ""
+msgstr "&amp; Cost"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.view_immediate_production
@@ -2537,7 +2537,7 @@ msgstr "Lot/núm. de sèrie"
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_unbuild__lot_id
 msgid "Lot/Serial Number of the product to unbuild."
-msgstr ""
+msgstr "Lot/número de sèrie del producte a desmuntar."
 
 #. module: mrp
 #: model:ir.ui.menu,name:mrp.menu_mrp_traceability
@@ -3035,6 +3035,9 @@ msgid ""
 "Note that product(s): '%s' is/are still linked to active Bill of Materials, "
 "which means that the product can still be used on it/them."
 msgstr ""
+"Tingueu en compte que els productes: «%s» encara està/està enllaçat a la "
+"llista activa de materials, el que significa que el producte encara es pot "
+"utilitzar en ella/ells."
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_bom__message_needaction_counter
@@ -3373,7 +3376,7 @@ msgstr "Pla"
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_workcenter_kanban
 msgid "Plan Orders"
-msgstr "Ordres planificades"
+msgstr "Planifica ordres"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.res_config_settings_view_form
@@ -4460,7 +4463,7 @@ msgstr "Camp tècnic per verificar quan podem cancel·lar la reserva"
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_stock_assign_serial__show_apply
 msgid "Technical field to show the Apply button"
-msgstr ""
+msgstr "Camp tècnic per a mostrar el botó Aplica"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_stock_assign_serial__show_backorders

@@ -17,6 +17,7 @@ const {
     backgroundImageCssToParts,
     backgroundImagePartsToCss,
     DEFAULT_PALETTE,
+    isBackgroundImageAttribute,
 } = weUtils;
 var weWidgets = require('wysiwyg.widgets');
 const {
@@ -27,9 +28,12 @@ const {
     isImageSupportedForProcessing,
     isImageSupportedForStyle,
 } = require('web_editor.image_processing');
+const OdooEditorLib = require('@web_editor/../lib/odoo-editor/src/OdooEditor');
 
 var qweb = core.qweb;
 var _t = core._t;
+const preserveCursor = OdooEditorLib.preserveCursor;
+const descendants = OdooEditorLib.descendants;
 
 /**
  * @param {HTMLElement} el
@@ -942,6 +946,16 @@ const SelectUserValueWidget = BaseSelectionUserValueWidget.extend({
      */
     async start() {
         await this._super(...arguments);
+        if (!this.menuEl.children.length) {
+            // Remove empty text nodes so that :empty css rule can work
+            // TODO this has been added here as a fix to be extra careful. In
+            // master we should just avoid adding text nodes inside
+            // we-selection-items in the first place.
+            while (this.menuEl.firstChild
+                    && !this.menuEl.firstChild.data.trim().length) {
+                this.menuEl.firstChild.remove();
+            }
+        }
 
         if (this.options && this.options.valueEl) {
             this.containerEl.insertBefore(this.options.valueEl, this.menuEl);
@@ -1229,6 +1243,7 @@ const InputUserValueWidget = UnitUserValueWidget.extend({
     async setValue() {
         await this._super(...arguments);
         this.inputEl.value = this._value;
+        this._oldValue = this._value;
     },
 
     //--------------------------------------------------------------------------
@@ -1252,25 +1267,47 @@ const InputUserValueWidget = UnitUserValueWidget.extend({
      */
     _onInputInput: function (ev) {
         this._value = this.inputEl.value;
+        // When the value changes as a result of a arrow up/down, the change
+        // event is not called, unless a real user input has been triggered.
+        // This event handler holds a variable for this in order to not call
+        // `_onUserValueChange` two times. If the users only uses arrow up/down
+        // it will be trigger on blur otherwise it will be triggered on change.
+        if (!ev.detail || !ev.detail.keyUpOrDown) {
+            this.changeEventWillBeTriggered = true;
+        }
         this._onUserValuePreview(ev);
     },
     /**
-     * TODO remove in master
+     * @private
+     * @param {Event} ev
      */
-    _onInputBlur: function (ev) {},
+    _onInputBlur: function (ev) {
+        if (this.notifyValueChangeOnBlur && !this.changeEventWillBeTriggered) {
+            // In case the input value has been modified with arrow up/down, the
+            // change event is not triggered (except if there has been a natural
+            // input event), so if the element doesn't trigger a preview, we
+            // have to notify that the value changes now.
+            this._onUserValueChange(ev);
+            this.notifyValueChangeOnBlur = false;
+        }
+        this.changeEventWillBeTriggered = false;
+    },
     /**
      * @private
      * @param {Event} ev
      */
     _onInputKeydown: function (ev) {
+        const params = this._methodsParams;
+        if (!params.unit && !params.step) {
+            return;
+        }
         switch (ev.which) {
+            case $.ui.keyCode.ENTER:
+                this._onUserValueChange(ev);
+                break;
             case $.ui.keyCode.UP:
             case $.ui.keyCode.DOWN: {
                 const input = ev.currentTarget;
-                const params = this._methodsParams;
-                if (!params.unit && !params.step) {
-                    break;
-                }
                 let value = parseFloat(input.value || input.placeholder);
                 if (isNaN(value)) {
                     value = 0.0;
@@ -1281,11 +1318,28 @@ const InputUserValueWidget = UnitUserValueWidget.extend({
                 }
                 value += (ev.which === $.ui.keyCode.UP ? step : -step);
                 input.value = this._floatToStr(value);
-                $(input).trigger('input');
+                // We need to know if the change event will be triggered or not.
+                // Change is triggered if there has been a "natural" input event
+                // from the user. Since we are triggering a "fake" input event,
+                // we specify that the original event is a key up/down.
+                input.dispatchEvent(new CustomEvent('input', {
+                    bubbles: true,
+                    cancelable: true,
+                    detail: {keyUpOrDown: true}
+                }));
+                this.notifyValueChangeOnBlur = true;
                 break;
             }
         }
     },
+    /**
+     * @override
+     */
+    _onUserValueChange() {
+        if (this._oldValue !== this._value) {
+            this._super(...arguments);
+        }
+    }
 });
 
 const MultiUserValueWidget = UserValueWidget.extend({
@@ -3467,6 +3521,12 @@ const SnippetOptionWidget = Widget.extend({
                 }
 
                 const dependencies = widget.getDependencies();
+
+                if (dependencies.length === 1 && dependencies[0] === 'fake') {
+                    widget.toggleVisibility(false);
+                    return;
+                }
+
                 const dependenciesData = [];
                 dependencies.forEach(depName => {
                     const toBeActive = (depName[0] !== '!');
@@ -4608,7 +4668,12 @@ registry.layout_column = SnippetOptionWidget.extend({
         const previousNbColumns = this.$('> .row').children().length;
         let $row = this.$('> .row');
         if (!$row.length) {
+            const restoreCursor = preserveCursor(this.$target[0].ownerDocument);
+            for (const node of descendants(this.$target[0])) {
+                node.ouid = undefined;
+            }
             $row = this.$target.contents().wrapAll($('<div class="row"><div class="col-lg-12"/></div>')).parent().parent();
+            restoreCursor();
         }
 
         const nbColumns = parseInt(widgetValue);
@@ -4618,7 +4683,12 @@ registry.layout_column = SnippetOptionWidget.extend({
         // TODO: make this more generic in activate_snippet event handler.
         await new Promise(resolve => setTimeout(resolve));
         if (nbColumns === 0) {
+            const restoreCursor = preserveCursor(this.$target[0].ownerDocument);
+            for (const node of descendants($row[0])) {
+                node.ouid = undefined;
+            }
             $row.contents().unwrap().contents().unwrap();
+            restoreCursor();
             this.trigger_up('activate_snippet', {$snippet: this.$target});
         } else if (previousNbColumns === 0) {
             this.trigger_up('activate_snippet', {$snippet: this.$('> .row').children().first()});
@@ -4777,6 +4847,9 @@ registry.SnippetMove = SnippetOptionWidget.extend({
                 });
             }
         }
+        // Update the "Invisible Elements" panel as the order of invisible
+        // snippets could have changed on the page.
+        this.trigger_up("update_invisible_dom");
     },
 });
 
@@ -4830,6 +4903,13 @@ registry.ReplaceMedia = SnippetOptionWidget.extend({
             const wrapperEl = document.createElement('a');
             this.$target[0].after(wrapperEl);
             wrapperEl.appendChild(this.$target[0]);
+            // TODO Remove when bug fixed in Chrome.
+            if (this.$target[0].getBoundingClientRect().width === 0) {
+                // Chrome lost lazy-loaded image => Force Chrome to display image.
+                const src = this.$target[0].src;
+                this.$target[0].src = '';
+                this.$target[0].src = src;
+            }
         } else {
             parentEl.replaceWith(this.$target[0]);
         }
@@ -4972,6 +5052,7 @@ const ImageHandlerOption = SnippetOptionWidget.extend({
         weightEl.classList.add('o_we_image_weight', 'o_we_tag', 'd-none');
         weightEl.title = _t("Size");
         this.$weight = $(weightEl);
+        await this._applyOptions(false);
     },
 
     //--------------------------------------------------------------------------
@@ -5465,7 +5546,7 @@ registry.ImageTools = ImageHandlerOption.extend({
         const [module, directory, fileName] = shapeName.split('/');
         let shape = this.shapeCache[fileName];
         if (!shape) {
-            const shapeURL = `/${module}/static/image_shapes/${directory}/${fileName}.svg`;
+            const shapeURL = `/${encodeURIComponent(module)}/static/image_shapes/${encodeURIComponent(directory)}/${encodeURIComponent(fileName)}.svg`;
             shape = await (await fetch(shapeURL)).text();
             this.shapeCache[fileName] = shape;
         }
@@ -5664,7 +5745,7 @@ registry.ImageTools = ImageHandlerOption.extend({
         uiFragment.querySelectorAll('we-select-page we-button[data-set-img-shape]').forEach(btn => {
             const image = document.createElement('img');
             const [moduleName, directory, shapeName] = btn.dataset.setImgShape.split('/');
-            image.src = `/${moduleName}/static/image_shapes/${directory}/${shapeName}.svg`;
+            image.src = `/${encodeURIComponent(moduleName)}/static/image_shapes/${encodeURIComponent(directory)}/${encodeURIComponent(shapeName)}.svg`;
             $(btn).prepend(image);
 
             if (btn.dataset.animated) {
@@ -5703,7 +5784,7 @@ registry.ImageTools = ImageHandlerOption.extend({
         const img = this._getImg();
         const match = img.src.match(/\/web_editor\/image_shape\/(\w+\.\w+)/);
         if (img.dataset.shape && match) {
-            return this._loadImageInfo(`/web/image/${match[1]}`);
+            return this._loadImageInfo(`/web/image/${encodeURIComponent(match[1])}`);
         }
         return this._super(...arguments);
     },
@@ -5799,22 +5880,6 @@ registry.BackgroundOptimize = ImageHandlerOption.extend({
         this.$target.off('.BackgroundOptimize');
         return this._super(...arguments);
     },
-    /**
-     * Marks the target for creation of an attachment and copies data attributes
-     * to the target so that they can be restored on this.img in later editions.
-     *
-     * @override
-     */
-    async cleanForSave() {
-        const img = this._getImg();
-        if (img.matches('.o_modified_image_to_save')) {
-            this.$target.addClass('o_modified_image_to_save');
-            Object.entries(img.dataset).forEach(([key, value]) => {
-                this.$target[0].dataset[key] = value;
-            });
-            this.$target[0].dataset.bgSrc = img.getAttribute('src');
-        }
-    },
 
     //--------------------------------------------------------------------------
     // Private
@@ -5839,15 +5904,18 @@ registry.BackgroundOptimize = ImageHandlerOption.extend({
      */
     async _loadImageInfo() {
         this.img = new Image();
-        Object.entries(this.$target[0].dataset).filter(([key]) =>
-            // Avoid copying dynamic editor attributes
-            !['oeId','oeModel', 'oeField', 'oeXpath', 'noteId'].includes(key)
-        ).forEach(([key, value]) => {
-            this.img.dataset[key] = value;
-        });
-        const src = getBgImageURL(this.$target[0]);
-        // Don't set the src if not relative (ie, not local image: cannot be modified)
-        this.img.src = src.startsWith('/') ? src : '';
+        const targetEl = this.$target[0].classList.contains("oe_img_bg")
+            ? this.$target[0] : this.$target[0].querySelector(".oe_img_bg");
+        if (targetEl) {
+            Object.entries(targetEl.dataset).filter(([key]) =>
+                isBackgroundImageAttribute(key)).forEach(([key, value]) => {
+                this.img.dataset[key] = value;
+            });
+            const src = getBgImageURL(targetEl);
+            // Don't set the src if not relative (ie, not local image: cannot be
+            // modified)
+            this.img.src = src.startsWith("/") ? src : "";
+        }
         return await this._super(...arguments);
     },
     /**
@@ -5874,6 +5942,21 @@ registry.BackgroundOptimize = ImageHandlerOption.extend({
         parts.url = `url('${img.getAttribute('src')}')`;
         const combined = backgroundImagePartsToCss(parts);
         this.$target.css('background-image', combined);
+        // Apply modification on the DOM HTML element that is currently being
+        // modified.
+        this.$target[0].classList.add("o_modified_image_to_save");
+        // First delete the data attributes relative to the image background
+        // from the target as a data attribute could have been be removed (ex:
+        // glFilter).
+        for (const attribute in this.$target[0].dataset) {
+            if (isBackgroundImageAttribute(attribute)) {
+                delete this.$target[0].dataset[attribute];
+            }
+        }
+        Object.entries(img.dataset).forEach(([key, value]) => {
+            this.$target[0].dataset[key] = value;
+        });
+        this.$target[0].dataset.bgSrc = img.getAttribute("src");
     },
 
     //--------------------------------------------------------------------------
@@ -6085,12 +6168,29 @@ registry.BackgroundImage = SnippetOptionWidget.extend({
      */
     setTarget: function () {
         // When we change the target of this option we need to transfer the
-        // background-image from the old target to the new one.
+        // background-image and the dataset information relative to this image
+        // from the old target to the new one.
         const oldBgURL = getBgImageURL(this.$target);
+        const isModifiedImage = this.$target[0].classList.contains("o_modified_image_to_save");
+        const filteredOldDataset = Object.entries(this.$target[0].dataset).filter(([key]) => {
+            return isBackgroundImageAttribute(key);
+        });
+        // Delete the dataset information relative to the background-image of
+        // the old target.
+        filteredOldDataset.forEach(([key]) => {
+            delete this.$target[0].dataset[key];
+        });
+        // It is important to delete ".o_modified_image_to_save" from the old
+        // target as its image source will be deleted.
+        this.$target[0].classList.remove("o_modified_image_to_save");
         this._setBackground('');
         this._super(...arguments);
         if (oldBgURL) {
             this._setBackground(oldBgURL);
+            filteredOldDataset.forEach(([key, value]) => {
+                this.$target[0].dataset[key] = value;
+            });
+            this.$target[0].classList.toggle("o_modified_image_to_save", isModifiedImage);
         }
 
         // TODO should be automatic for all options as equal to the start method
@@ -6153,6 +6253,13 @@ registry.BackgroundShape = SnippetOptionWidget.extend({
      */
     onBuilt() {
         this._patchShape(this.$target[0]);
+        // Flip classes should no longer be used but are still present in some
+        // theme snippets.
+        if (this.$target[0].querySelector('.o_we_flip_x, .o_we_flip_y')) {
+            this._handlePreviewState(false, () => {
+                return {flip: this._getShapeData().flip};
+            });
+        }
     },
 
     //--------------------------------------------------------------------------
@@ -6181,7 +6288,12 @@ registry.BackgroundShape = SnippetOptionWidget.extend({
      */
     shape(previewMode, widgetValue, params) {
         this._handlePreviewState(previewMode, () => {
-            return {shape: widgetValue, colors: this._getImplicitColors(widgetValue, this._getShapeData().colors), flip: []};
+            return {
+                shape: widgetValue,
+                colors: this._getImplicitColors(widgetValue, this._getShapeData().colors),
+                flip: [],
+                animated: params.animated,
+            };
         });
     },
     /**
@@ -6372,7 +6484,7 @@ registry.BackgroundShape = SnippetOptionWidget.extend({
         // Updates/removes the shape container as needed and gives it the
         // correct background shape
         const json = target.dataset.oeShapeData;
-        const {shape, colors, flip = []} = json ? JSON.parse(json) : {};
+        const {shape, colors, flip = [], animated = 'false'} = json ? JSON.parse(json) : {};
         let shapeContainer = target.querySelector(':scope > .o_we_shape');
         if (!shape) {
             return this._insertShapeContainer(null);
@@ -6383,6 +6495,8 @@ registry.BackgroundShape = SnippetOptionWidget.extend({
         }
         // Compat: remove old flip classes as flipping is now done inside the svg
         shapeContainer.classList.remove('o_we_flip_x', 'o_we_flip_y');
+
+        shapeContainer.classList.toggle('o_we_animated', animated === 'true');
 
         if (colors || flip.length) {
             // Custom colors/flip, overwrite shape that is set by the class
@@ -6464,7 +6578,7 @@ registry.BackgroundShape = SnippetOptionWidget.extend({
         if (flip.length) {
             searchParams.push(`flip=${flip.sort().join('')}`);
         }
-        return `/web_editor/shape/${shape}.svg?${searchParams.join('&')}`;
+        return `/web_editor/shape/${encodeURIComponent(shape)}.svg?${searchParams.join('&')}`;
     },
     /**
      * Retrieves current shape data from the target's dataset.

@@ -11,13 +11,12 @@
 # Muftiara Syuhada <muftiara.syuhada@gmail.com>, 2022
 # William Surya Permana <zarambie_game@yahoo.com>, 2022
 # Muhammad Herdiansyah <herdiansyah@openmailbox.org>, 2022
-# oon arfiandwi <oon.arfiandwi@gmail.com>, 2022
+# oon arfiandwi (OonID) <oon.arfiandwi@gmail.com>, 2022
 # Febrasari Almania <febrasari.almania@gmail.com>, 2022
 # dimas indra <dprahastra@gmail.com>, 2022
 # Muhammad Syarif <mhdsyarif.ms@gmail.com>, 2022
 # Ikhsanul Wirsa <iwirsa02@outlook.co.id>, 2022
 # firman firman <firman.olxbpn@gmail.com>, 2022
-# Martin Trigaux, 2022
 # whenwesober, 2022
 # alfieqashwa <alfieqashwa@gmail.com>, 2022
 # PAS IRVANUS <ipankbiz@gmail.com>, 2022
@@ -27,7 +26,8 @@
 # Wahyu Setiawan <wahyusetiaaa@gmail.com>, 2022
 # Deddy Ddr <deddy.ddr@gmail.com>, 2022
 # arfa simoncelli, 2022
-# Abe Manyo, 2022
+# Abe Manyo, 2023
+# Martin Trigaux, 2023
 # 
 msgid ""
 msgstr ""
@@ -35,8 +35,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-10 07:16+0000\n"
 "PO-Revision-Date: 2021-09-14 12:24+0000\n"
-"Last-Translator: Abe Manyo, 2022\n"
-"Language-Team: Indonesian (https://www.transifex.com/odoo/teams/41243/id/)\n"
+"Last-Translator: Martin Trigaux, 2023\n"
+"Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -133,7 +133,7 @@ msgstr ""
 #: code:addons/point_of_sale/models/pos_order.py:0
 #, python-format
 msgid "<p>Dear %s,<br/>Here is your electronic ticket for the %s. </p>"
-msgstr ""
+msgstr "<p>Yth %s,<br/>Berikut adalah tiket elektronik untuk %s. </p>"
 
 #. module: point_of_sale
 #. openerp-web
@@ -343,7 +343,7 @@ msgstr "Template Bagan Akun"
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_payment__account_move_id
 msgid "Account Move"
-msgstr ""
+msgstr "Account Move"
 
 #. module: point_of_sale
 #: model:ir.model.fields,help:point_of_sale.field_pos_session__bank_payment_ids
@@ -1048,7 +1048,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:pos.category,name:point_of_sale.pos_category_chairs
 msgid "Chairs"
-msgstr ""
+msgstr "Kursi-Kursi"
 
 #. module: point_of_sale
 #. openerp-web
@@ -1439,7 +1439,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_payment__currency_rate
 msgid "Conversion Rate"
-msgstr ""
+msgstr "Tingkat Konversi"
 
 #. module: point_of_sale
 #: model:ir.model.fields,help:point_of_sale.field_pos_payment__currency_rate
@@ -1809,7 +1809,7 @@ msgstr "Batalkan Pilihan Pelanggan"
 #: model:product.product,name:point_of_sale.desk_organizer
 #: model:product.template,name:point_of_sale.desk_organizer_product_template
 msgid "Desk Organizer"
-msgstr ""
+msgstr "Organizer Meja"
 
 #. module: point_of_sale
 #: model:product.product,name:point_of_sale.desk_pad
@@ -1820,7 +1820,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:pos.category,name:point_of_sale.pos_category_desks
 msgid "Desks"
-msgstr ""
+msgstr "Meja"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_close_session_wizard__account_id
@@ -2655,7 +2655,7 @@ msgstr "Stok Persediaan"
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.res_config_settings_view_form
 msgid "Inventory Management"
-msgstr ""
+msgstr "Manajemen Inventaris"
 
 #. module: point_of_sale
 #. openerp-web
@@ -3001,7 +3001,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_config__iface_customer_facing_display_local
 msgid "Local Customer Facing Display"
-msgstr ""
+msgstr "Tampilan Untuk Pelanggan Lokal"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_session__login_number
@@ -3786,7 +3786,7 @@ msgstr "Lainnya"
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_payment_method__outstanding_account_id
 msgid "Outstanding Account"
-msgstr ""
+msgstr "Akun Piutang"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_procurement_group__pos_order_id
@@ -4960,6 +4960,12 @@ msgid "Returned"
 msgstr "Jumlah Pengembalian"
 
 #. module: point_of_sale
+#: code:addons/point_of_sale/models/pos_order.py:0
+#, python-format
+msgid "Reversal of: %s"
+msgstr "Reversal of: %s"
+
+#. module: point_of_sale
 #. openerp-web
 #: code:addons/point_of_sale/static/src/xml/Screens/PaymentScreen/PaymentScreenElectronicPayment.xml:0
 #, python-format
@@ -4993,7 +4999,7 @@ msgstr "Review"
 #: code:addons/point_of_sale/static/src/xml/Screens/ReceiptScreen/OrderReceipt.xml:0
 #, python-format
 msgid "Rounding"
-msgstr ""
+msgstr "Pembulatan"
 
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.pos_config_view_form
@@ -5397,7 +5403,7 @@ msgstr "Kebijakan Pengiriman"
 #: code:addons/point_of_sale/static/src/xml/Screens/TicketScreen/TicketScreen.xml:0
 #, python-format
 msgid "Shopping cart"
-msgstr ""
+msgstr "Keranjang Belanja"
 
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.pos_config_view_form
@@ -6506,6 +6512,15 @@ msgid "Type of the exception activity on record."
 msgstr "Jenis dari aktivitas pengecualian pada rekaman data."
 
 #. module: point_of_sale
+#. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/ReceiptScreen/ReceiptScreen.js:0
+#, python-format
+msgid ""
+"This order is not yet synced to server. Make sure it is synced then try "
+"again."
+msgstr ""
+
+#. module: point_of_sale
 #: code:addons/point_of_sale/models/pos_session.py:0
 #, python-format
 msgid ""
@@ -6685,9 +6700,10 @@ msgstr "Uuid"
 #. module: point_of_sale
 #. openerp-web
 #: code:addons/point_of_sale/static/src/xml/Popups/CashMoveReceipt.xml:0
-#, python-format
-msgid "VAT:"
-msgstr "PPN:"
+#: code:addons/point_of_sale/static/src/js/Screens/ReceiptScreen/ReceiptScreen.js:0
+#, python-format, python-format
+msgid "Unsynced order"
+msgstr ""
 
 #. module: point_of_sale
 #. openerp-web
@@ -6830,12 +6846,6 @@ msgstr "Anda tidak diperbolehkan untuk mengubah jumlah ini"
 msgid ""
 "You are trying to sell products with serial/lot numbers, but some of them are not set.\n"
 "Would you like to proceed anyway?"
-msgstr ""
-
-#. module: point_of_sale
-#: code:addons/point_of_sale/models/pos_config.py:0
-#, python-format
-msgid "You can only have one cash payment method."
 msgstr ""
 
 #. module: point_of_sale
@@ -7147,6 +7157,8 @@ msgid ""
 "When the session is open, we keep on loading all remaining products in the background.\n"
 "In the meantime, you can click on the 'database icon' in the searchbar to load products from database."
 msgstr ""
+"kita memuat semua produk yang dibintang (favorit), semua layanan, pergerakan inventaris produk yang terkini, dan produk-produk yang belakangan ini diperbarui.\n"
+"Semntara itu, Anda dapat mengeklik 'ikon database' pada search bar untuk memuat produk dari database."
 
 #. module: point_of_sale
 #. openerp-web
@@ -7154,3 +7166,17 @@ msgstr ""
 #, python-format
 msgid "were duplicates of existing orders"
 msgstr "adalah duplikat dari order yang sudah ada"
+
+#. module: point_of_sale
+#: code:addons/point_of_sale/models/pos_session.py:0
+#, python-format
+msgid "You don't have the access rights to set the point of sale cash box."
+msgstr ""
+
+#. module: point_of_sale
+#: code:addons/point_of_sale/models/pos_session.py:0
+#, python-format
+msgid ""
+"You don't have the access rights to get the point of sale closing control "
+"data."
+msgstr ""

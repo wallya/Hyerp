@@ -10,7 +10,6 @@
 # Батмөнх Ганбат <batmunkh2522@gmail.com>, 2021
 # Батболд <batbold.ts@gmail.com>, 2021
 # baaska sh <sh.baaskash@gmail.com>, 2021
-# Bayarkhuu Bataa, 2021
 # Otgonbayar.A <gobi.mn@gmail.com>, 2021
 # Насан-Очир <nasaaskii@gmail.com>, 2021
 # hish, 2021
@@ -18,9 +17,10 @@
 # tserendavaa tsogtoo <tseegii011929@gmail.com>, 2021
 # Munkhbaatar g <muuguu17@gmail.com>, 2021
 # Batmunkh Ganbat <batmunkh.g@bumanit.mn>, 2021
-# Sanjaajamts Badamjunai <b.sanjaajamtsfc@gmail.com>, 2021
 # Martin Trigaux, 2021
-# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2022
+# Sanjaajamts Badamjunai <b.sanjaajamtsfc@gmail.com>, 2023
+# Bayarkhuu Bataa, 2023
+# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
@@ -28,8 +28,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-10 07:16+0000\n"
 "PO-Revision-Date: 2021-09-14 12:24+0000\n"
-"Last-Translator: Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2022\n"
-"Language-Team: Mongolian (https://www.transifex.com/odoo/teams/41243/mn/)\n"
+"Last-Translator: Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2023\n"
+"Language-Team: Mongolian (https://app.transifex.com/odoo/teams/41243/mn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -4926,7 +4926,7 @@ msgstr "Хасах"
 #: code:addons/point_of_sale/static/src/xml/Popups/ProductInfoPopup.xml:0
 #, python-format
 msgid "Replenishment"
-msgstr ""
+msgstr "Дүүргэлт"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_point_rep
@@ -4997,6 +4997,12 @@ msgstr "Бараа буцаах"
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_order__amount_return
 msgid "Returned"
 msgstr "Буцаагдсан"
+
+#. module: point_of_sale
+#: code:addons/point_of_sale/models/pos_order.py:0
+#, python-format
+msgid "Reversal of: %s"
+msgstr "%s-н эсрэг бичилт"
 
 #. module: point_of_sale
 #. openerp-web
@@ -5513,7 +5519,7 @@ msgstr ""
 #: code:addons/point_of_sale/static/src/js/Screens/ProductScreen/ProductScreen.js:0
 #, python-format
 msgid "Some Serial/Lot Numbers are missing"
-msgstr ""
+msgstr "Цувралын дугаар сонгох сануулга."
 
 #. module: point_of_sale
 #. openerp-web
@@ -6585,6 +6591,15 @@ msgid "Type of the exception activity on record."
 msgstr "Бичлэг дээрх асуудал бүхий ажилбарын төрөл"
 
 #. module: point_of_sale
+#. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/ReceiptScreen/ReceiptScreen.js:0
+#, python-format
+msgid ""
+"This order is not yet synced to server. Make sure it is synced then try "
+"again."
+msgstr ""
+
+#. module: point_of_sale
 #: code:addons/point_of_sale/models/pos_session.py:0
 #, python-format
 msgid ""
@@ -6771,9 +6786,10 @@ msgstr "Uuid"
 #. module: point_of_sale
 #. openerp-web
 #: code:addons/point_of_sale/static/src/xml/Popups/CashMoveReceipt.xml:0
-#, python-format
-msgid "VAT:"
-msgstr "НӨАТ:"
+#: code:addons/point_of_sale/static/src/js/Screens/ReceiptScreen/ReceiptScreen.js:0
+#, python-format, python-format
+msgid "Unsynced order"
+msgstr ""
 
 #. module: point_of_sale
 #. openerp-web
@@ -6919,6 +6935,8 @@ msgid ""
 "You are trying to sell products with serial/lot numbers, but some of them are not set.\n"
 "Would you like to proceed anyway?"
 msgstr ""
+"Та серийн дугаар ашигладаг бүтээгдэхүүн сонгосон байна. Бүтээгдэхүүн бүр дээр сери дугаарыг нь сонгох боломжтой.\n"
+"Энэ нь зөвхөн таньд сануулж байгаа учир битгий санаа зов. ТА ЦААШ ҮРГЭЛЖЛҮҮЛЖ БОЛНО?"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/models/account_bank_statement.py:0
@@ -7245,3 +7263,17 @@ msgstr ""
 #, python-format
 msgid "were duplicates of existing orders"
 msgstr "байсан захиалгуудаас хуулбарлан үүссэн"
+
+#. module: point_of_sale
+#: code:addons/point_of_sale/models/pos_session.py:0
+#, python-format
+msgid "You don't have the access rights to set the point of sale cash box."
+msgstr ""
+
+#. module: point_of_sale
+#: code:addons/point_of_sale/models/pos_session.py:0
+#, python-format
+msgid ""
+"You don't have the access rights to get the point of sale closing control "
+"data."
+msgstr ""

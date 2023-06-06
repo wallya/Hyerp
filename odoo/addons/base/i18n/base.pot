@@ -10713,6 +10713,12 @@ msgid "Compute"
 msgstr ""
 
 #. module: base
+#: code:addons/base/models/ir_model.py:0
+#, python-format
+msgid "Compute method cannot depend on field 'id'"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,summary:base.module_sale_subscription_taxcloud
 msgid "Compute taxes with TaxCloud after automatic invoice creation."
 msgstr ""
@@ -11130,6 +11136,12 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_country__name
 msgid "Country Name"
+msgstr ""
+
+#. module: base
+#: code:addons/base/models/res_country.py:0
+#, python-format
+msgid "Country code cannot be empty"
 msgstr ""
 
 #. module: base
@@ -25303,6 +25315,14 @@ msgid ""
 msgstr ""
 
 #. module: base
+#: code:addons/base/models/res_currency.py:0
+#, python-format
+msgid ""
+"The name for the current rate is empty.\n"
+"Please set it."
+msgstr ""
+
+#. module: base
 #: model:ir.model.constraint,message:base.constraint_res_country_code_uniq
 msgid "The code of the country must be unique !"
 msgstr ""
@@ -28193,6 +28213,12 @@ msgid "You cannot deactivate the user you're currently logged in as."
 msgstr ""
 
 #. module: base
+#: code:addons/base/models/res_users.py:0
+#, python-format
+msgid "You cannot delete a group linked with a settings field."
+msgstr ""
+
+#. module: base
 #: code:addons/base/models/res_partner.py:0
 #, python-format
 msgid ""
@@ -28999,4 +29025,10 @@ msgstr ""
 #. module: base
 #: model:res.country,name:base.ax
 msgid "Åland Islands"
+msgstr ""
+
+#. module: base
+#: code:addons/base/models/res_currency.py:0
+#, python-format
+msgid "This currency is set on a company and therefore cannot be deactivated."
 msgstr ""

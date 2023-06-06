@@ -456,7 +456,7 @@ function toInline($editable, cssRules, $iframe) {
                 value = attributeName === 'width' ? _getWidth(image) : _getHeight(image);;
             }
             image.setAttribute(attributeName, value);
-            image.style.setProperty(attributeName, image.getAttribute(attributeName));
+            image.style.setProperty(attributeName, value + 'px');
         };
     };
 
@@ -534,7 +534,7 @@ function fontToImg($editable) {
             const image = document.createElement('img');
             image.setAttribute('width', width);
             image.setAttribute('height', height);
-            image.setAttribute('src', `/web_editor/font_to_img/${content.charCodeAt(0)}/${window.encodeURI(color)}/${window.encodeURI(bg)}/${Math.max(1, Math.round(intrinsicWidth))}x${Math.max(1, Math.round(intrinsicHeight))}`);
+            image.setAttribute('src', `/web_editor/font_to_img/${content.charCodeAt(0)}/${encodeURIComponent(color)}/${encodeURIComponent(bg)}/${Math.max(1, Math.round(intrinsicWidth))}x${Math.max(1, Math.round(intrinsicHeight))}`);
             image.setAttribute('data-class', font.getAttribute('class'));
             image.setAttribute('data-style', style);
             image.setAttribute('style', style);
@@ -974,7 +974,7 @@ function _getMatchedCSSRules(node, cssRules) {
         }
     };
 
-    if (processedStyle.display === 'block' && !(node.classList && node.classList.contains('btn-block'))) {
+    if (processedStyle.display === 'block' && !(node.classList && ['btn-block', 'oe-nested'].some(klass => node.classList.contains(klass)))) {
         delete processedStyle.display;
     }
     if (!processedStyle['box-sizing']) {

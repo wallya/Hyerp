@@ -12,7 +12,7 @@
 # Rizky Fajar Ryanda <rizky.rikuverse@gmail.com>, 2022
 # Rachmat Aditiya <raditiya@me.com>, 2022
 # Febrasari Almania <febrasari.almania@gmail.com>, 2022
-# oon arfiandwi <oon.arfiandwi@gmail.com>, 2022
+# oon arfiandwi (OonID) <oon.arfiandwi@gmail.com>, 2022
 # Abdi Pratama <abdipro@gmail.com>, 2022
 # William Surya Permana <zarambie_game@yahoo.com>, 2022
 # Ikhsanul Wirsa <iwirsa02@outlook.co.id>, 2022
@@ -35,7 +35,7 @@ msgstr ""
 "POT-Creation-Date: 2022-01-10 06:07+0000\n"
 "PO-Revision-Date: 2021-09-14 12:27+0000\n"
 "Last-Translator: Abe Manyo, 2023\n"
-"Language-Team: Indonesian (https://www.transifex.com/odoo/teams/41243/id/)\n"
+"Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -659,14 +659,8 @@ msgstr "<b>Geser</b> tombol ini untuk mengubah ukuran kolom."
 #: model_terms:ir.ui.view,arch_db:website.view_edit_robots
 msgid ""
 "<br/><br/>\n"
-"                    Example of rule:<br/>\n"
-"                    <code class=\"ml-4\">Disallow: /web/login</code><br/>\n"
-"                    <code class=\"ml-4\">Allow: *</code>"
+"                    Example of rule:<br/>"
 msgstr ""
-"<br/><br/>\n"
-"                    Contoh aturan:<br/>\n"
-"                    <code class=\"ml-4\">Tidak izinkan: /web/login</code><br/>\n"
-"                    <code class=\"ml-4\">Izinkan: *</code>"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_carousel
@@ -6818,6 +6812,13 @@ msgstr "Ponsel"
 #. openerp-web
 #: code:addons/website/static/src/js/editor/snippets.options.js:0
 #, python-format
+msgid "Mobile Alignment"
+msgstr ""
+
+#. module: website
+#. openerp-web
+#: code:addons/website/static/src/js/editor/snippets.options.js:0
+#, python-format
 msgid "Mobile menu"
 msgstr "Menu Mobile"
 
@@ -9900,6 +9901,13 @@ msgstr ""
 
 #. module: website
 #. openerp-web
+#: code:addons/website/static/src/js/menu/translate.js:0
+#, python-format
+msgid "This translation is not editable."
+msgstr ""
+
+#. module: website
+#. openerp-web
 #: code:addons/website/static/src/js/menu/seo.js:0
 #, python-format
 msgid ""
@@ -10143,6 +10151,13 @@ msgstr "Transisi"
 #, python-format
 msgid "Translate Attribute"
 msgstr "Terjemahkan Atribut"
+
+#. module: website
+#. openerp-web
+#: code:addons/website/static/src/js/menu/translate.js:0
+#, python-format
+msgid "Translate header in the text. Menu is generated automatically."
+msgstr ""
 
 #. module: website
 #. openerp-web
@@ -11343,6 +11358,13 @@ msgid "You can't remove the submit button of the form"
 msgstr "Anda tidak boleh menghapus tombol submit pada formulir."
 
 #. module: website
+#: code:addons/website/models/website.py:0
+#, python-format
+msgid ""
+"You cannot delete default website %s. Try to change its settings instead"
+msgstr ""
+
+#. module: website
 #: code:addons/website/controllers/backend.py:0
 #, python-format
 msgid "You do not have sufficient rights to perform that action."
@@ -11719,7 +11741,7 @@ msgstr "e.g. De Brouckere, Brussels, Belgium"
 #. module: website
 #: model:ir.ui.menu,name:website.menu_website_dashboard
 msgid "eCommerce Dashboard"
-msgstr ""
+msgstr "Dashboard eCommerce"
 
 #. module: website
 #: model:website.configurator.feature,name:website.feature_module_elearning

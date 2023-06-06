@@ -19,10 +19,11 @@
 # Robert Frykelius <robert.frykelius@linserv.se>, 2021
 # lynnliuying <lynn.liu1971@gmail.com>, 2021
 # Chrille Hedberg <hedberg.chrille@gmail.com>, 2021
-# STefan Rundgren <stefanrundgren@cellglas.com>, 2021
+# 3eec91a23d05c632ffac786ac42b81b8_b6fff7b <8985b7bc57db860af29969457dbb51b3_1018915>, 2021
 # Kim Asplund <kim.asplund@gmail.com>, 2021
 # Karan Bosamia, 2021
 # Simon S, 2022
+# Lasse Larsson, 2023
 # 
 msgid ""
 msgstr ""
@@ -30,8 +31,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-16 13:18+0000\n"
 "PO-Revision-Date: 2021-09-14 12:25+0000\n"
-"Last-Translator: Simon S, 2022\n"
-"Language-Team: Swedish (https://www.transifex.com/odoo/teams/41243/sv/)\n"
+"Last-Translator: Lasse Larsson, 2023\n"
+"Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -1298,6 +1299,8 @@ msgid ""
 "International Commercial Terms are a series of predefined commercial terms "
 "used in international transactions."
 msgstr ""
+"International Commercial Terms är en serie fördefinierade kommersiella "
+"termer som används i internationella transaktioner."
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
@@ -1784,7 +1787,7 @@ msgstr "Förpackning"
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_order_line__product_packaging_qty
 msgid "Packaging Quantity"
-msgstr ""
+msgstr "Förpackningskvantitet"
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_order_line__partner_id
@@ -2062,6 +2065,7 @@ msgid "Purchase Order: Vendor Reminder"
 msgstr ""
 
 #. module: purchase
+#: code:addons/purchase/models/analytic_account.py:0
 #: model:ir.actions.act_window,name:purchase.purchase_form_action
 #: model:ir.ui.menu,name:purchase.menu_purchase_form_action
 #: model_terms:ir.ui.view,arch_db:purchase.account_analytic_account_view_form_purchase
@@ -2071,6 +2075,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:purchase.view_purchase_bill_union_filter
 #: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
 #: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
+#, python-format
 msgid "Purchase Orders"
 msgstr "Inköpsordrar"
 
@@ -2595,12 +2600,12 @@ msgstr ""
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_report_view_tree
 msgid "Sum of Total"
-msgstr ""
+msgstr "Summa av Totalt"
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_report_view_tree
 msgid "Sum of Untaxed Total"
-msgstr ""
+msgstr "Summa av Obeskattat Totalt"
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_res_partner__property_purchase_currency_id
@@ -2621,7 +2626,7 @@ msgstr "Skatt"
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_order__tax_country_id
 msgid "Tax Country"
-msgstr ""
+msgstr "Skatte-land"
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_order__tax_totals_json
@@ -2637,7 +2642,7 @@ msgstr "Moms"
 #. module: purchase
 #: model:ir.model.fields,help:purchase.field_purchase_order_line__display_type
 msgid "Technical field for UX purpose."
-msgstr ""
+msgstr "Tekniskt område för UX-ändamål."
 
 #. module: purchase
 #: model:ir.model.fields,help:purchase.field_purchase_order__tax_country_id
@@ -2857,7 +2862,7 @@ msgstr "Enhetspris"
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Unit Price:"
-msgstr ""
+msgstr "Enhetspris:"
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_order_line__product_uom
@@ -3103,6 +3108,8 @@ msgid ""
 "You must define a product for everything you sell or purchase,\n"
 "                whether it's a storable product, a consumable or a service."
 msgstr ""
+"Du måste definiera en produkt för allt du säljer eller köper, oavsett\n"
+"om det är en lagringsbar produkt, en förbrukningsprodukt eller en tjänst."
 
 #. module: purchase
 #: model_terms:ir.actions.act_window,help:purchase.product_normal_action_puchased
@@ -3118,6 +3125,8 @@ msgid ""
 "Your quotation contains products from company %(product_company)s whereas your quotation belongs to company %(quote_company)s. \n"
 " Please change the company of your quotation or remove the products from other companies (%(bad_products)s)."
 msgstr ""
+"Ditt erbjudande innehåller produkter från företaget %(product_company)s medan ditt erbjudande tillhör företaget %(quote_company)s. \n"
+" Var god ändra företaget för ditt erbjudande eller ta bort produkterna från andra företag (%(bad_products)s)."
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order

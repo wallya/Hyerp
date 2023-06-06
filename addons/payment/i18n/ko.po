@@ -8,7 +8,7 @@
 # Martin Trigaux, 2022
 # Linkup <link-up@naver.com>, 2022
 # JH CHOI <hwangtog@gmail.com>, 2022
-# Sarah Park, 2022
+# Sarah Park, 2023
 # 
 msgid ""
 msgstr ""
@@ -16,8 +16,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-10 14:27+0000\n"
 "PO-Revision-Date: 2021-09-14 12:24+0000\n"
-"Last-Translator: Sarah Park, 2022\n"
-"Language-Team: Korean (https://www.transifex.com/odoo/teams/41243/ko/)\n"
+"Last-Translator: Sarah Park, 2023\n"
+"Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -148,7 +148,7 @@ msgstr ""
 #: code:addons/payment/models/account_payment.py:0
 #, python-format
 msgid "A payment transaction with reference %s already exists."
-msgstr ""
+msgstr "%s를  참조로 하는 결제 거래가 이미 존재합니다."
 
 #. module: payment
 #: code:addons/payment/models/payment_transaction.py:0
@@ -278,7 +278,7 @@ msgstr "금액"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_account_payment__amount_available_for_refund
 msgid "Amount Available For Refund"
-msgstr ""
+msgstr "환불 가능 금액"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_link_wizard__amount_max
@@ -826,7 +826,7 @@ msgstr ""
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_refund_wizard__has_pending_refund
 msgid "Has a pending refund"
-msgstr ""
+msgstr "보류 중인 환불 건이 있습니다"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_transaction__is_post_processed
@@ -1035,7 +1035,7 @@ msgstr "수동"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_refund_wizard__amount_available_for_refund
 msgid "Maximum Refund Allowed"
-msgstr ""
+msgstr "최대 환불 가능"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__paypal_seller_account
@@ -1347,7 +1347,7 @@ msgstr "결제 참조"
 #. module: payment
 #: model:ir.model,name:payment.model_payment_refund_wizard
 msgid "Payment Refund Wizard"
-msgstr ""
+msgstr "결제 환불 마법사"
 
 #. module: payment
 #: model:ir.model,name:payment.model_payment_token
@@ -1543,12 +1543,12 @@ msgstr "환불"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_refund_wizard__amount_to_refund
 msgid "Refund Amount"
-msgstr ""
+msgstr "환불 금액"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_refund_wizard__refunded_amount
 msgid "Refunded Amount"
-msgstr ""
+msgstr "환불된 금액"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_transaction_form
@@ -1560,7 +1560,7 @@ msgstr "환불"
 #: model:ir.model.fields,field_description:payment.field_account_payment__refunds_count
 #: model:ir.model.fields,field_description:payment.field_payment_transaction__refunds_count
 msgid "Refunds Count"
-msgstr ""
+msgstr "환불 수"
 
 #. module: payment
 #: model:ir.model,name:payment.model_account_payment_register
@@ -1585,7 +1585,7 @@ msgstr "SEPA 출금 이체"
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.view_account_journal_form
 msgid "SETUP"
-msgstr ""
+msgstr "설정"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.manage
@@ -1600,7 +1600,7 @@ msgstr ""
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_account_payment__payment_token_id
 msgid "Saved Payment Token"
-msgstr ""
+msgstr "저장된 결제 토큰"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_account_payment_register__payment_token_id
@@ -1658,7 +1658,7 @@ msgstr ""
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__show_credentials_page
 msgid "Show Credentials Page"
-msgstr ""
+msgstr "자격 증명 페이지 확인"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__show_done_msg
@@ -1688,7 +1688,7 @@ msgstr "Sips"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_account_payment__source_payment_id
 msgid "Source Payment"
-msgstr ""
+msgstr "원본 결제"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction__source_transaction_id
@@ -1735,7 +1735,7 @@ msgstr "Stripe 비밀 키"
 #: model:ir.model.fields,field_description:payment.field_account_payment__suitable_payment_token_ids
 #: model:ir.model.fields,field_description:payment.field_account_payment_register__suitable_payment_token_ids
 msgid "Suitable Payment Token"
-msgstr ""
+msgstr "적합한 결제 토큰"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__payment_icon_ids
@@ -1772,7 +1772,7 @@ msgstr ""
 #: code:addons/payment/controllers/portal.py:0
 #, python-format
 msgid "The access token is invalid."
-msgstr ""
+msgstr "유효하지 않은 액세스 토큰입니다."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_token__acquirer_ref
@@ -1789,7 +1789,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The amount to be refunded must be positive and cannot be superior to %s."
-msgstr ""
+msgstr "환불 금액은 양수여야 하며 %s보다 클 수 없습니다."
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_token__name
@@ -1893,7 +1893,7 @@ msgstr ""
 #. module: payment
 #: model:ir.model.fields,help:payment.field_account_payment__source_payment_id
 msgid "The source payment of related refund payments"
-msgstr ""
+msgstr "환불 금액에 대한 원래 금액"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_transaction__source_transaction_id
@@ -2039,7 +2039,7 @@ msgstr "거래"
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__support_refund
 #: model:ir.model.fields,field_description:payment.field_payment_refund_wizard__support_refund
 msgid "Type of Refund Supported"
-msgstr ""
+msgstr "지원되는 환불 유형"
 
 #. module: payment
 #. openerp-web
@@ -2058,7 +2058,7 @@ msgstr "업그레이드"
 #: model:ir.model.fields,field_description:payment.field_account_payment__use_electronic_payment_method
 #: model:ir.model.fields,field_description:payment.field_account_payment_register__use_electronic_payment_method
 msgid "Use Electronic Payment Method"
-msgstr ""
+msgstr "전자 결제 방법 사용"
 
 #. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_transaction__operation__validation

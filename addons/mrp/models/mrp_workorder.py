@@ -127,7 +127,7 @@ class MrpWorkorder(models.Model):
     finished_lot_id = fields.Many2one(
         'stock.production.lot', string='Lot/Serial Number', compute='_compute_finished_lot_id',
         inverse='_set_finished_lot_id', domain="[('product_id', '=', product_id), ('company_id', '=', company_id)]",
-        check_company=True)
+        check_company=True, search='_search_finished_lot_id')
     time_ids = fields.One2many(
         'mrp.workcenter.productivity', 'workorder_id', copy=False)
     is_user_working = fields.Boolean(
@@ -224,6 +224,9 @@ class MrpWorkorder(models.Model):
         for workorder in self:
             workorder.finished_lot_id = workorder.production_id.lot_producing_id
 
+    def _search_finished_lot_id(self, operator, value):
+        return [('production_id.lot_producing_id', operator, value)]
+
     def _set_finished_lot_id(self):
         for workorder in self:
             workorder.production_id.lot_producing_id = workorder.finished_lot_id
@@ -318,7 +321,7 @@ class MrpWorkorder(models.Model):
             order.duration = sum(order.time_ids.mapped('duration'))
             order.duration_unit = round(order.duration / max(order.qty_produced, 1), 2)  # rounding 2 because it is a time
             if order.duration_expected:
-                order.duration_percent = 100 * (order.duration_expected - order.duration) / order.duration_expected
+                order.duration_percent = max(-2147483648, min(2147483647, 100 * (order.duration_expected - order.duration) / order.duration_expected))
             else:
                 order.duration_percent = 0
 
@@ -582,7 +585,7 @@ class MrpWorkorder(models.Model):
 
         if self.product_tracking == 'serial':
             self.qty_producing = 1.0
-        else:
+        elif self.qty_producing == 0:
             self.qty_producing = self.qty_remaining
 
         self.env['mrp.workcenter.productivity'].create(
@@ -611,10 +614,9 @@ class MrpWorkorder(models.Model):
             vals['leave_id'] = leave.id
             return self.write(vals)
         else:
-            if self.date_planned_start > start_date:
+            if not self.date_planned_start or self.date_planned_start > start_date:
                 vals['date_planned_start'] = start_date
-                if self.duration_expected:
-                    vals['date_planned_finished'] = self._calculate_date_planned_finished(start_date)
+                vals['date_planned_finished'] = self._calculate_date_planned_finished(start_date)
             if self.date_planned_finished and self.date_planned_finished < start_date:
                 vals['date_planned_finished'] = start_date
             return self.with_context(bypass_duration_calculation=True).write(vals)

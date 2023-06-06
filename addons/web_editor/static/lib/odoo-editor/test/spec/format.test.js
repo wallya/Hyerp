@@ -1,5 +1,5 @@
 import { isSelectionFormat } from '../../src/utils/utils.js';
-import { BasicEditor, testEditor, setTestSelection, Direction, nextTick, unformat } from '../utils.js';
+import { BasicEditor, testEditor, setTestSelection, Direction, nextTick, unformat, insertText } from '../utils.js';
 
 const bold = async editor => {
     await editor.execCommand('bold');
@@ -518,6 +518,27 @@ describe('Format', () => {
                 contentAfter: `<p style="text-decoration: line-through;">a[b]c</p>`,
             });
         });
+        it('should insert new character inside strikethrough at first position', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: `<p>d[a${s('bc]<br><br>')}</p>`,
+                stepFunction: async editor => {
+                    insertText(editor, 'A');
+                },
+                contentAfter: `<p>dA[]${s(`<br><br>`)}</p>`,
+            });
+            await testEditor(BasicEditor, {
+                contentBefore: `<p>[a${s('bc]<br><br>')}</p>`,
+                stepFunction: async editor => {
+                    insertText(editor, 'A');
+                },
+                contentAfter: `<p>A[]${s(`<br><br>`)}</p>`,
+                // Note: In the browser, the actual result is the following:
+                // contentAfter: `<p>${s(`A[]<br><br>`)}</p>`,
+                // It is arguable which version is better than the other but in
+                // any case this is a trade-off because it matches the native
+                // behavior of contentEditable in that case.
+            });
+        });
     });
 
     describe('underline + strikeThrough', () => {
@@ -745,6 +766,20 @@ describe('Format', () => {
                 contentAfter: '<p style="font-size: 10px">b[c]d</p>',
             });
         });
+        it('should change the font-size to default', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: '<p>[ab]</p>',
+                stepFunction: setFontSize(),
+                contentAfter: '<p>[ab]</p>',
+            });
+        });
+        it('should change the font-size to default removing the existing style with no empty span at the end', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: '<p><span style="font-size: 36px;">[abc]</span></p>',
+                stepFunction: setFontSize(),
+                contentAfter: '<p>[abc]</p>',
+            });
+        });
     });
 
     it('should add style to a span parent of an inline', async () => {
@@ -850,6 +885,13 @@ describe('setTagName', () => {
                 contentAfter: `<ul><li>[abcd]</li></ul>`
             });
         });
+        it('should turn three table cells with heading 1 to table cells with paragraph', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: '<table><tbody><tr><td><h1>[a</h1></td><td><h1>b</h1></td><td><h1>c]</h1></td></tr></tbody></table>',
+                stepFunction: editor => editor.execCommand('setTag', 'p'),
+                contentAfter: '<table><tbody><tr><td><p>[a</p></td><td><p>b</p></td><td><p>c]</p></td></tr></tbody></table>',
+            });
+        });
     });
     describe('to heading 1', () => {
         it('should turn a paragraph into a heading 1', async () => {
@@ -894,6 +936,13 @@ describe('setTagName', () => {
                 contentAfter: '<div><h1><span style="">[ab]</span></h1></div>',
             });
         });
+        it('should turn three table cells with paragraph to table cells with heading 1', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: '<table><tbody><tr><td><p>[a</p></td><td><p>b</p></td><td><p>c]</p></td></tr></tbody></table>',
+                stepFunction: editor => editor.execCommand('setTag', 'h1'),
+                contentAfter: '<table><tbody><tr><td><h1>[a</h1></td><td><h1>b</h1></td><td><h1>c]</h1></td></tr></tbody></table>',
+            });
+        });
     });
     describe('to heading 2', () => {
         it('should turn a heading 1 into a heading 2', async () => {
@@ -929,6 +978,13 @@ describe('setTagName', () => {
                 contentBefore: '<div>[ab]</div>',
                 stepFunction: editor => editor.execCommand('setTag', 'h2'),
                 contentAfter: '<div><h2>[ab]</h2></div>',
+            });
+        });
+        it('should turn three table cells with paragraph to table cells with heading 2', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: '<table><tbody><tr><td><p>[a</p></td><td><p>b</p></td><td><p>c]</p></td></tr></tbody></table>',
+                stepFunction: editor => editor.execCommand('setTag', 'h2'),
+                contentAfter: '<table><tbody><tr><td><h2>[a</h2></td><td><h2>b</h2></td><td><h2>c]</h2></td></tr></tbody></table>',
             });
         });
     });
@@ -968,6 +1024,13 @@ describe('setTagName', () => {
                 contentAfter: '<div><h3>[ab]</h3></div>',
             });
         });
+        it('should turn three table cells with paragraph to table cells with heading 3', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: '<table><tbody><tr><td><p>[a</p></td><td><p>b</p></td><td><p>c]</p></td></tr></tbody></table>',
+                stepFunction: editor => editor.execCommand('setTag', 'h3'),
+                contentAfter: '<table><tbody><tr><td><h3>[a</h3></td><td><h3>b</h3></td><td><h3>c]</h3></td></tr></tbody></table>',
+            });
+        });
     });
     describe('to pre', () => {
         it('should turn a heading 1 into a pre', async () => {
@@ -989,6 +1052,13 @@ describe('setTagName', () => {
                 contentBefore: '<h1>a[b</h1><pre>cd</pre><p>e]f</p>',
                 stepFunction: editor => editor.execCommand('setTag', 'pre'),
                 contentAfter: '<pre>a[b</pre><pre>cd</pre><pre>e]f</pre>',
+            });
+        });
+        it('should turn three table cells with paragraph to table cells with pre', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: '<table><tbody><tr><td><p>[a</p></td><td><p>b</p></td><td><p>c]</p></td></tr></tbody></table>',
+                stepFunction: editor => editor.execCommand('setTag', 'pre'),
+                contentAfter: '<table><tbody><tr><td><pre>[a</pre></td><td><pre>b</pre></td><td><pre>c]</pre></td></tr></tbody></table>',
             });
         });
     });
@@ -1027,6 +1097,13 @@ describe('setTagName', () => {
                 contentBefore: '<div>[ab]</div>',
                 stepFunction: editor => editor.execCommand('setTag', 'blockquote'),
                 contentAfter: '<div><blockquote>[ab]</blockquote></div>',
+            });
+        });
+        it('should turn three table cells with paragraph to table cells with blockquote', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: '<table><tbody><tr><td><p>[a</p></td><td><p>b</p></td><td><p>c]</p></td></tr></tbody></table>',
+                stepFunction: editor => editor.execCommand('setTag', 'blockquote'),
+                contentAfter: '<table><tbody><tr><td><blockquote>[a</blockquote></td><td><blockquote>b</blockquote></td><td><blockquote>c]</blockquote></td></tr></tbody></table>',
             });
         });
     });

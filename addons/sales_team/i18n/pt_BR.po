@@ -7,6 +7,8 @@
 # grazziano <gra.negocia@gmail.com>, 2021
 # Fernando Colus <fcolus1@gmail.com>, 2021
 # Éder Brito <britoederr@gmail.com>, 2021
+# Kevilyn Rosa, 2023
+# Layna Nascimento, 2023
 # 
 msgid ""
 msgstr ""
@@ -14,13 +16,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 10:29+0000\n"
 "PO-Revision-Date: 2021-09-14 12:26+0000\n"
-"Last-Translator: Éder Brito <britoederr@gmail.com>, 2021\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/odoo/teams/41243/pt_BR/)\n"
+"Last-Translator: Layna Nascimento, 2023\n"
+"Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: sales_team
 #: model_terms:ir.ui.view,arch_db:sales_team.crm_team_view_kanban_dashboard
@@ -292,7 +294,7 @@ msgstr "Agrupar por..."
 #: model:ir.model.fields,field_description:sales_team.field_crm_team__has_message
 #: model:ir.model.fields,field_description:sales_team.field_crm_team_member__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Análise de Previsão:"
 
 #. module: sales_team
 #: model:ir.model.fields,field_description:sales_team.field_crm_tag__id
@@ -538,7 +540,7 @@ msgstr "Equipe de Vendas"
 #. module: sales_team
 #: model:ir.model,name:sales_team.model_crm_team_member
 msgid "Sales Team Member"
-msgstr ""
+msgstr "Membro da Equipe de Vendas"
 
 #. module: sales_team
 #: model:ir.model.fields,field_description:sales_team.field_crm_team__crm_team_member_ids
@@ -556,7 +558,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:sales_team.crm_team_action_sales
 #: model:ir.model.fields,field_description:sales_team.field_res_users__crm_team_ids
 msgid "Sales Teams"
-msgstr "Equipes de Vendas"
+msgstr "Equipes de vendas"
 
 #. module: sales_team
 #: model:ir.model.fields,field_description:sales_team.field_crm_team_member__user_id
@@ -724,7 +726,7 @@ msgstr ""
 #. module: sales_team
 #: model:ir.model.fields,field_description:sales_team.field_crm_team_member__user_company_ids
 msgid "User Company"
-msgstr ""
+msgstr "Empresa do Usuário"
 
 #. module: sales_team
 #: model:ir.model.fields,field_description:sales_team.field_crm_team_member__user_in_teams_ids

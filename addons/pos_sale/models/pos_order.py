@@ -71,6 +71,7 @@ class PosOrder(models.Model):
             # track the waiting pickings
             waiting_picking_ids = set()
             for so_line in so_lines:
+                so_line_stock_move_ids = so_line.move_ids.group_id.stock_move_ids
                 for stock_move in so_line.move_ids:
                     picking = stock_move.picking_id
                     if not picking.state in ['waiting', 'confirmed', 'assigned']:
@@ -78,7 +79,10 @@ class PosOrder(models.Model):
                     new_qty = so_line.product_uom_qty - so_line.qty_delivered
                     if float_compare(new_qty, 0, precision_rounding=stock_move.product_uom.rounding) <= 0:
                         new_qty = 0
-                    stock_move.product_uom_qty = so_line.product_uom._compute_quantity(new_qty, stock_move.product_uom, False)
+                    stock_move.product_uom_qty = so_line.compute_uom_qty(new_qty, stock_move, False)
+                    #If the product is delivered with more than one step, we need to update the quantity of the other steps
+                    for move in so_line_stock_move_ids.filtered(lambda m: m.state in ['waiting', 'confirmed'] and m.product_id == stock_move.product_id):
+                        move.product_uom_qty = stock_move.product_uom_qty
                     waiting_picking_ids.add(picking.id)
 
             def is_product_uom_qty_zero(move):

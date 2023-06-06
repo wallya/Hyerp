@@ -7,13 +7,13 @@
 # nle_odoo, 2021
 # Seongseok Shin <shinss61@hotmail.com>, 2021
 # Mark Lee <odoos@soti.33mail.com>, 2021
-# SeongHyeon Cho <jaymz9634@gmail.com>, 2021
+# 조성현 (jaymz9634) <jaymz9634@gmail.com>, 2021
 # Link Up링크업 <linkup.way@gmail.com>, 2021
-# Martin Trigaux, 2021
 # JH CHOI <hwangtog@gmail.com>, 2021
 # Linkup <link-up@naver.com>, 2021
 # Heesoo Choi, 2021
-# Sarah Park, 2022
+# Sarah Park, 2023
+# Martin Trigaux, 2023
 # 
 msgid ""
 msgstr ""
@@ -21,8 +21,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-10 07:16+0000\n"
 "PO-Revision-Date: 2021-09-14 12:24+0000\n"
-"Last-Translator: Sarah Park, 2022\n"
-"Language-Team: Korean (https://www.transifex.com/odoo/teams/41243/ko/)\n"
+"Last-Translator: Martin Trigaux, 2023\n"
+"Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -186,7 +186,7 @@ msgstr "<span class=\"oe_inline\"><b>미리보기 화면 통과</b></span>"
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.view_pos_config_kanban
 msgid "<span>Last Closing Cash Balance</span>"
-msgstr ""
+msgstr "<span>최근 마감 시재</span>"
 
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.view_pos_config_kanban
@@ -1219,7 +1219,7 @@ msgstr ""
 #: code:addons/point_of_sale/static/src/js/Popups/ClosePosPopup.js:0
 #, python-format
 msgid "Closing session error"
-msgstr ""
+msgstr "세션 마감 오류"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_bill__value
@@ -1597,7 +1597,7 @@ msgstr "고객 청구서"
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_order_line__customer_note
 #, python-format
 msgid "Customer Note"
-msgstr ""
+msgstr "고객 관련 메모"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_config__iface_orderline_customer_notes
@@ -2247,7 +2247,7 @@ msgstr "부정확한 산업용 터치 스크린"
 #: model_terms:ir.ui.view,arch_db:point_of_sale.view_form_pos_close_session_wizard
 #, python-format
 msgid "Force Close Session"
-msgstr ""
+msgstr "세션 강제 종료"
 
 #. module: point_of_sale
 #. openerp-web
@@ -2696,7 +2696,7 @@ msgstr "청구서 발행됨"
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_order__is_refunded
 msgid "Is Refunded"
-msgstr ""
+msgstr "환불되었습니다"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_order__is_total_cost_computed
@@ -2902,6 +2902,11 @@ msgid ""
 "For bank journal, we write to the outstanding account specified in this payment method.\n"
 "Only cash and bank journals are allowed."
 msgstr ""
+"고객의 미수금 계정을 사용하려면 공란으로 두십시오.\n"
+"세션 종료 후 누적 결제 (또는 확인된 고객이 해당하는 경우 개별 결제)를 기장할 장부를 설정합니다.\n"
+"현금 분개장의 경우, 명세서 내역에 따라 분개장의 기본 계정에 바로 작성됩니다.\n"
+"은행 분개장의 경우, 해당 결제 방법에 지정되어 있는 미결제 계좌로 작성됩니다.\n"
+"현금 및 은행 분개장만 사용이 허용됩니다."
 
 #. module: point_of_sale
 #: model:product.product,name:point_of_sale.letter_tray
@@ -3240,7 +3245,7 @@ msgstr "신문 걸이대"
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_session__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr ""
+msgstr "다음 활동 캘린더 행사"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_session__activity_date_deadline
@@ -3423,7 +3428,7 @@ msgstr "읽지 않은 메시지 수"
 #: code:addons/point_of_sale/static/src/xml/Popups/CashOpeningPopup.xml:0
 #, python-format
 msgid "OPENING CASH CONTROL"
-msgstr ""
+msgstr "시재 시작 금액 관리"
 
 #. module: point_of_sale
 #. openerp-web
@@ -3545,7 +3550,7 @@ msgstr "세션 열기"
 #: code:addons/point_of_sale/static/src/xml/Popups/CashOpeningPopup.xml:0
 #, python-format
 msgid "Open session"
-msgstr ""
+msgstr "자료 생성"
 
 #. module: point_of_sale
 #. openerp-web
@@ -3601,7 +3606,7 @@ msgstr ""
 #: code:addons/point_of_sale/static/src/xml/Popups/CashOpeningPopup.xml:0
 #, python-format
 msgid "Opening cash"
-msgstr ""
+msgstr "시작 금액"
 
 #. module: point_of_sale
 #: model:ir.actions.act_window,name:point_of_sale.account_cashbox_line_action
@@ -3761,7 +3766,7 @@ msgstr "기타"
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_payment_method__outstanding_account_id
 msgid "Outstanding Account"
-msgstr ""
+msgstr "미결제 계정"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_procurement_group__pos_order_id
@@ -4344,7 +4349,7 @@ msgstr "점포판매시스템 제품 분류"
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_stock_picking__pos_session_id
 msgid "Pos Session"
-msgstr ""
+msgstr "POS 세션"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_config__pos_session_duration
@@ -4429,7 +4434,7 @@ msgstr ""
 #: code:addons/point_of_sale/static/src/xml/Popups/ProductInfoPopup.xml:0
 #, python-format
 msgid "Price excl. VAT:"
-msgstr ""
+msgstr "VAT 제외 가격:"
 
 #. module: point_of_sale
 #. openerp-web
@@ -4931,6 +4936,12 @@ msgstr "반품"
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_order__amount_return
 msgid "Returned"
 msgstr "반납함"
+
+#. module: point_of_sale
+#: code:addons/point_of_sale/models/pos_order.py:0
+#, python-format
+msgid "Reversal of: %s"
+msgstr "환입 : %s"
 
 #. module: point_of_sale
 #. openerp-web
@@ -6462,6 +6473,15 @@ msgid "Type of the exception activity on record."
 msgstr "레코드에 있는 예외 활동의 유형입니다."
 
 #. module: point_of_sale
+#. openerp-web
+#: code:addons/point_of_sale/static/src/js/Screens/ReceiptScreen/ReceiptScreen.js:0
+#, python-format
+msgid ""
+"This order is not yet synced to server. Make sure it is synced then try "
+"again."
+msgstr ""
+
+#. module: point_of_sale
 #: code:addons/point_of_sale/models/pos_session.py:0
 #, python-format
 msgid ""
@@ -6643,9 +6663,10 @@ msgstr "Uuid"
 #. module: point_of_sale
 #. openerp-web
 #: code:addons/point_of_sale/static/src/xml/Popups/CashMoveReceipt.xml:0
-#, python-format
-msgid "VAT:"
-msgstr "VAT :"
+#: code:addons/point_of_sale/static/src/js/Screens/ReceiptScreen/ReceiptScreen.js:0
+#, python-format, python-format
+msgid "Unsynced order"
+msgstr ""
 
 #. module: point_of_sale
 #. openerp-web
@@ -7031,7 +7052,7 @@ msgstr "노트"
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.view_pos_config_kanban
 msgid "open sessions"
-msgstr ""
+msgstr "자료 생성"
 
 #. module: point_of_sale
 #. openerp-web
@@ -7093,3 +7114,17 @@ msgstr ""
 #, python-format
 msgid "were duplicates of existing orders"
 msgstr "기존 주문과 중복"
+
+#. module: point_of_sale
+#: code:addons/point_of_sale/models/pos_session.py:0
+#, python-format
+msgid "You don't have the access rights to set the point of sale cash box."
+msgstr ""
+
+#. module: point_of_sale
+#: code:addons/point_of_sale/models/pos_session.py:0
+#, python-format
+msgid ""
+"You don't have the access rights to get the point of sale closing control "
+"data."
+msgstr ""

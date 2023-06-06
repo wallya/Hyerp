@@ -260,13 +260,25 @@ class Website(models.Model):
                 vals['domain'] = 'https://%s' % vals['domain']
             vals['domain'] = vals['domain'].rstrip('/')
 
+    # TODO: rename in master
     @api.ondelete(at_uninstall=False)
     def _unlink_except_last_remaining_website(self):
         website = self.search([('id', 'not in', self.ids)], limit=1)
         if not website:
             raise UserError(_('You must keep at least one website.'))
+        default_website = self.env.ref('website.default_website', raise_if_not_found=False)
+        if default_website and default_website in self:
+            raise UserError(_("You cannot delete default website %s. Try to change its settings instead", default_website.name))
 
     def unlink(self):
+        self._remove_attachments_on_website_unlink()
+
+        companies = self.company_id
+        res = super().unlink()
+        companies._compute_website_id()
+        return res
+
+    def _remove_attachments_on_website_unlink(self):
         # Do not delete invoices, delete what's strictly necessary
         attachments_to_unlink = self.env['ir.attachment'].search([
             ('website_id', 'in', self.ids),
@@ -276,10 +288,6 @@ class Website(models.Model):
             ('url', 'ilike', '.assets\\_'),
         ])
         attachments_to_unlink.unlink()
-        companies = self.company_id
-        res = super(Website, self).unlink()
-        companies._compute_website_id()
-        return res
 
     def create_and_redirect_configurator(self):
         self._force()
@@ -748,7 +756,7 @@ class Website(models.Model):
         key_copy = string
         inc = 0
         domain_static = self.get_current_website().website_domain()
-        while self.env['website.page'].with_context(active_test=False).sudo().search([('key', '=', key_copy)] + domain_static):
+        while self.env['ir.ui.view'].with_context(active_test=False).sudo().search([('key', '=', key_copy)] + domain_static):
             inc += 1
             key_copy = string + (inc and "-%s" % inc or "")
         return key_copy
@@ -1236,6 +1244,9 @@ class Website(models.Model):
             domain = []
         domain += self.get_current_website().website_domain()
         pages = self.env['website.page'].sudo().search(domain, order=order, limit=limit)
+        # TODO In 16.0 remove condition on _filter_duplicate_pages.
+        if self.env.context.get('_filter_duplicate_pages'):
+            pages = pages._get_most_specific_pages()
         return pages
 
     def search_pages(self, needle=None, limit=None):
@@ -1437,6 +1448,9 @@ class Website(models.Model):
             match = re.search('<([^>]*class="[^>]*)>', snippet_template_html)
             snippet_occurences.append(match.group())
 
+        if self._check_snippet_used(snippet_occurences, asset_type, asset_version):
+            return True
+
         # As well as every snippet dropped in html fields
         self.env.cr.execute(sql.SQL(" UNION ").join(
             sql.SQL("SELECT regexp_matches({}, {}, 'g') FROM {}").format(
@@ -1445,10 +1459,11 @@ class Website(models.Model):
                 sql.Identifier(table)
             ) for table, column in html_fields
         ), {'snippet_regex': f'<([^>]*data-snippet="{snippet_id}"[^>]*)>'})
-        results = self.env.cr.fetchall()
-        for r in results:
-            snippet_occurences.append(r[0][0])
 
+        snippet_occurences = [r[0][0] for r in self.env.cr.fetchall()]
+        return self._check_snippet_used(snippet_occurences, asset_type, asset_version)
+
+    def _check_snippet_used(self, snippet_occurences, asset_type, asset_version):
         for snippet in snippet_occurences:
             if asset_version == '000':
                 if f'data-v{asset_type}' not in snippet:
